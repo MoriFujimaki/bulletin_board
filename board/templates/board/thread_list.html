@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>掲示板だなも</title>
+    <style>
+        body {
+          background-color: #F0F8FF;
+          font-family: 'Rounded Mplus 1c', 'Noto Sans JP', sans-serif;
+          text-align: center;
+        }
+        h1 {
+          color: #3C8D7C;
+        }
+        .thread-list {
+          list-style: none;
+          padding: 0;
+        }
+        .thread-item {
+          background: #FFFFFF;
+          margin: 10px auto;
+          width: 300px;
+          padding: 10px;
+          border-radius: 15px;
+          box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+        .button {
+          background-color: #3C8D7C;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          margin: 10px;
+          border-radius: 30px;
+          font-size: 16px;
+          cursor: pointer;
+          transition: all 0.3s;
+        }
+        .button:hover {
+          background-color: #2E6B5A;
+        }
+      </style>
+</head>
+<body>
+    <h1>スレッド一覧だなも</h1>
+    <h2>{{ message }}</h2>
+    <ul>
+        {% for thread in threads %}
+            <li>
+                <a href="{% url 'board:thread_detail' thread_id=thread.id %}">
+                    {{ thread.title }}
+                </a>
+                ({{ thread.created_at|date:"Y/m/d H:i" }})
+            </li>
+        {% empty %}
+            <li>まだスレッドがないだなも。</li>
+        {% endfor %}
+    </ul>
+    <form action="{% url 'board:hello' %}" method="get">
+        <button type="submit">Helloページへ</button>
+    </form>
+    <form action="{% url 'board:tanukiti' %}" method="get">
+        <button type="submit">たぬきちページへ</button>
+    </form>
+    <form action="{% url 'board:thread_create' %}" method="get">
+        <button type="submit">新しいスレッドを作るだなも！</button>
+    </form>
+</body>
+</html>
