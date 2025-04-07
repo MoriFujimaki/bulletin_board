@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.contrib import admin
+from django.urls import path, include
 app_name = 'board'
 urlpatterns = [
     path('', views.thread_list, name='thread_list'),
@@ -7,4 +9,6 @@ urlpatterns = [
     path('tanukiti/', views.tanukiti, name='tanukiti'),
     path('thread/<int:thread_id>/', views.thread_detail, name='thread_detail'),  # ←追加
     path('thread/create/', views.thread_create, name='thread_create'),  # ←追加
+    path('search/', views.search, name='search'),
+    path('admin/', admin.site.urls),
 ]

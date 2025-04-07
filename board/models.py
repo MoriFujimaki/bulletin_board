@@ -7,8 +7,8 @@ class Thread(models.Model):
         return self.title
 class Post(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)  # ← ここ変更
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return f'{self.author.username}: {self.content[:20]}'
+        return f'{self.author.username if self.author else "匿名"}: {self.content[:20]}'
