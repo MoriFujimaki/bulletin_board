@@ -10,5 +10,6 @@ urlpatterns = [
     path('thread/<int:thread_id>/', views.thread_detail, name='thread_detail'),  # ←追加
     path('thread/create/', views.thread_create, name='thread_create'),  # ←追加
     path('search/', views.search, name='search'),
+    path('search_results/', views.search_results, name='search_results'),
     path('admin/', admin.site.urls),
 ]

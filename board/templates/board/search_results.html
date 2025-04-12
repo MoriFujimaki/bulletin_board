@@ -1,0 +1,19 @@
+<h2>検索結果</h2>
+
+  <h3>スレッド</h3>
+  <ul>
+  {% for thread in threads %}
+      <li><a href="#">{{ thread.title }}</a></li>
+  {% empty %}
+      <li>検索結果が見つかりませんでした。</li>
+  {% endfor %}
+  </ul>
+
+  <h3>投稿</h3>
+  <ul>
+  {% for post in posts %}
+      <li>{{ post.content|truncatewords:20 }}</li>
+  {% empty %}
+      <li>検索結果が見つかりませんでした。</li>
+  {% endfor %}
+  </ul>

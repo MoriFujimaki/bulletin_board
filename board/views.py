@@ -57,4 +57,10 @@ def search(request):
             # スレッドタイトルと投稿内容を検索
             threads = threads.filter(title__icontains=query)
             posts = posts.filter(content__icontains=query)
-    return render(request, 'search_results.html', {'form': form, 'threads': threads, 'posts': posts})
+    return render(request, 'board/search_results.html', {'form': form, 'threads': threads, 'posts': posts})
+    #return render(request, 'search_results/board/search_results.html', {'results': results})
+     #return render(request, 'board/search_results.html', {'results': results})
+
+
+#def search_results(request):
+     #return redirect('board/search_results.html')

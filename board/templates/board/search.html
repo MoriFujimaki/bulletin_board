@@ -1,27 +1,12 @@
 
   <!-- search_results.html -->
   <h1>掲示板検索</h1>
-  <form method="get" action="{% url 'board:search' %}">
+  <form method="get" action="{% url 'board:search_results' %}">
   {{ form.as_p }}
   <button type="submit">検索</button>
+
   </form>
-
-  <h2>検索結果</h2>
-
-  <h3>スレッド</h3>
-  <ul>
-  {% for thread in threads %}
-      <li><a href="#">{{ thread.title }}</a></li>
-  {% empty %}
-      <li>検索結果が見つかりませんでした。</li>
-  {% endfor %}
-  </ul>
-
-  <h3>投稿</h3>
-  <ul>
-  {% for post in posts %}
-      <li>{{ post.content|truncatewords:20 }}</li>
-  {% empty %}
-      <li>検索結果が見つかりませんでした。</li>
-  {% endfor %}
-  </ul>
+  <!-- </div><form action="{% url 'board:tanukiti' %}" method="get">
+    <button class="button-link" type="submit">たぬきちページへ</button>
+</form> -->
+  
