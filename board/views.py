@@ -1,10 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Thread, Post
-from .forms import PostForm
-from .forms import ThreadForm, PostForm
+from .forms import ThreadForm, PostForm, SearchForm
 from .forms import SearchForm
-
+from django.contrib.auth.decorators import login_required
 def thread_list(request):
     print('メインぺージを読み込むだなも！')
     message = "たぬきちの掲示板へようこそだなも！"
@@ -58,9 +57,20 @@ def search(request):
             threads = threads.filter(title__icontains=query)
             posts = posts.filter(content__icontains=query)
     return render(request, 'board/search_results.html', {'form': form, 'threads': threads, 'posts': posts})
-    #return render(request, 'search_results/board/search_results.html', {'results': results})
-     #return render(request, 'board/search_results.html', {'results': results})
+@login_required
+def delete_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
 
+    # 投稿者だけが削除できるようにする
+    if request.user != post.author:
+        return HttpResponseForbidden("あなたには削除権限がありません。")
 
-#def search_results(request):
-     #return redirect('board/search_results.html')
+    thread_id = post.thread.id  # 削除後にスレッド詳細に戻る用
+    post.delete()
+    return redirect('thread_detail', thread_id=thread_id)
+def index(request):
+    threads = Thread.objects.all().order_by('-created_at')
+    return render(request, 'board/index.html', {'threads': threads})
+
+def search_results(request):
+     return redirect('board/search_results.html')

@@ -4,42 +4,8 @@
     <meta charset="UTF-8">
     <title>たぬきちの里</title>
     <link href="https://fonts.googleapis.com/css2?family=Rounded+Mplus+1c&display=swap" rel="stylesheet">
-</head>
-<body>
-    <h1> 🦝たぬきちの掲示板だなも🦝</h1>
-    <form action="{% url 'board:thread_create' %}" method="get">
-        <button class="button" type="submit">+ 新しいスレッドを作る</button>
-    </form>
-    <h2>スレッド一覧だなも</h2>
-    <ul class="thread-list">
-        {% for thread in threads %}
-            <li class="thread-item">
-                <a href="{% url 'board:thread_detail' thread_id=thread.id %}">
-                    {{ thread.title }}
-                </a><br>
-                <small>{{ thread.created_at|date:"Y/m/d H:i" }}</small>
-            </li>
-        {% empty %}
-            <li>まだスレッドがないだなも。</li>
-        {% endfor %}
-    </ul>
-    <form action="{% url 'board:hello' %}" method="get">
-        <button class="button-link" type="submit">Helloページへ</button>
-    </form>
-    <form action="{% url 'board:tanukiti' %}" method="get">
-        <button class="button-link" type="submit">たぬきちページへ</button>
-    </form>
-    <form action="{% url 'board:thread_create' %}" method="get">
-        <button class="button-link"type="submit">新しいスレッドを作るだなも！</button>
-    </form>
-
-    
-<!-- {% include "board/search.html" %} -->
-
-
-</body>
-</html>
     <style>
+        /* スタイルはここに */
         body {
           background-color: #F0F8FF;
           font-family: 'Rounded Mplus 1c', 'Noto Sans JP', sans-serif;
@@ -92,4 +58,33 @@
         .button-link:hover {
           background-color: #2E6B5A;
         }
-      </style>
+    </style>
+</head>
+<body>
+    <h1> 🦝たぬきちの掲示板だなも🦝</h1>
+    
+    <form action="{% url 'board:thread_create' %}" method="get">
+        <button class="button" type="submit">+ 新しいスレッドを作る</button>
+    </form>
+
+    <h2>スレッド一覧だなも</h2>
+    <ul class="thread-list">
+        {% for thread in threads %}
+            <li class="thread-item">
+                <a href="{% url 'board:thread_detail' thread_id=thread.id %}">
+                    {{ thread.title }}
+                </a><br>
+                <small>{{ thread.created_at|date:"Y/m/d H:i" }}</small>
+            </li>
+        {% empty %}
+            <li>まだスレッドがないだなも。</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'board:hello' %}" class="button-link">Helloページへ</a>
+    <a href="{% url 'board:tanukiti' %}" class="button-link">たぬきちページへ</a>
+
+    <!-- 検索フォームを表示したい場合 -->
+    {% include "board/search.html" %}
+</body>
+</html>

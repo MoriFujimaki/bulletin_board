@@ -72,6 +72,13 @@
                 {{ post.author.username|default:"匿名" }} - {{ post.created_at|date:"Y/m/d H:i" }}
             </div>
             <div>{{ post.content }}</div>
+
+            {% if user == post.author %}
+            <form method="post" action="{% url 'delete_post' post.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
+            </form>
+            {% endif %}
         </div>
     {% empty %}
         <p>まだ投稿がないだなも。</p>

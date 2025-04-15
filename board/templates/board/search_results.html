@@ -1,19 +1,154 @@
-<h2>検索結果</h2>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>検索結果 | たぬきち掲示板</title>
+</head>
+<body>
+    <h1>掲示板検索</h1>
 
-  <h3>スレッド</h3>
-  <ul>
-  {% for thread in threads %}
-      <li><a href="#">{{ thread.title }}</a></li>
-  {% empty %}
-      <li>検索結果が見つかりませんでした。</li>
-  {% endfor %}
-  </ul>
+    <form method="get" action="{% url 'board:search' %}">
+        {{ form.as_p }}
+        <button type="submit" class="button">検索</button>
+    </form>
 
-  <h3>投稿</h3>
-  <ul>
-  {% for post in posts %}
-      <li>{{ post.content|truncatewords:20 }}</li>
-  {% empty %}
-      <li>検索結果が見つかりませんでした。</li>
-  {% endfor %}
-  </ul>
+    <h2>検索結果</h2>
+
+    {% if threads %}
+        <h3>スレッド</h3>
+        <ul>
+        {% for thread in threads %}
+            <li>
+                <a href="{% url 'board:thread_detail' thread_id=thread.id %}">{{ thread.title }}</a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if posts %}
+        <h3>投稿</h3>
+        <ul>
+        {% for post in posts %}
+            <li>{{ post.content }}（{{ post.created_at|date:"Y/m/d H:i" }}）</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if not threads and not posts %}
+        <p>該当するスレッドや投稿が見つかりませんでした。</p>
+    {% endif %}
+</body>
+</html>
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Rounded+Mplus+1c&display=swap" rel="stylesheet">
+    <style>
+        /* スタイルはここに */
+        body {
+          background-color: #F0F8FF;
+          font-family: 'Rounded Mplus 1c', 'Noto Sans JP', sans-serif;
+          text-align: center;
+        }
+        h1 {
+          color: #3C8D7C;
+        }
+        h2 {
+          color: #3c698d;
+          font-size: 20px;
+        }
+        .thread-list {
+          list-style: none;
+          padding: 0;
+        }
+        .thread-item {
+          background: #FFFFFF;
+          margin: 10px auto;
+          width: 300px;
+          padding: 10px;
+          border-radius: 15px;
+          box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+        .button {
+          background-color: #3C8D7C;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          margin: 10px;
+          border-radius: 30px;
+          font-size: 16px;
+          cursor: pointer;
+          transition: all 0.3s;
+        }
+        .button:hover {
+          background-color: #2E6B5A;
+        }
+        .button-link {
+          background-color: #3C8D7C;
+          color: #fff;
+          border: none;
+          padding: 3px 10px;
+          margin: 5px;
+          border-radius: 5px;
+          font-size: 10px;
+          cursor: pointer;
+          transition: all 0.3s;
+        }
+        .button-link:hover {
+          background-color: #2E6B5A;
+        }
+        /* フォーム全体のスタイル */
+    form {
+      background-color: #f9f8ff; /* 優しいパステルカラー */
+      padding: 20px;
+      border-radius: 10px; /* 丸みを帯びた角 */
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 軽い影をつける */
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+      font-family: 'Arial', sans-serif; /* フォントを可愛らしく */
+    }
+
+    /* フォームの各入力フィールド */
+    form input, form select, form textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px; /* 丸い入力フィールド */
+      border: 1px solid #ddd; /* 淡いボーダー */
+      font-size: 14px;
+      margin-bottom: 15px;
+      transition: border 0.3s ease;
+    }
+
+    /* 入力フィールドがフォーカスされているとき */
+    form input:focus, form select:focus, form textarea:focus {
+      border-color: #ff7eb9; /* フォーカス時にピンク色に */
+      outline: none;
+    }
+
+    /* ボタンのスタイル */
+    form button {
+      background-color: #ff7eb9; /* ピンク色のボタン */
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    /* ボタンにホバー時のスタイル */
+    form button:hover {
+      background-color: #ff5a97; /* 少し暗くする */
+    }
+
+    /* フォームラベル */
+    form label {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      display: block;
+      color: #555;
+    }
+    </style>
+</head>

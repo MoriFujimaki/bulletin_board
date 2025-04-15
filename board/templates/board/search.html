@@ -1,12 +1,69 @@
 
   <!-- search_results.html -->
   <h1>掲示板検索</h1>
-  <form method="get" action="{% url 'board:search_results' %}">
+  <form method="get" action="{% url 'board:search' %}">
   {{ form.as_p }}
-  <button type="submit">検索</button>
-
+  <button class="button" type="submit" >検索!!!!</button>
   </form>
+  <head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Rounded+Mplus+1c&display=swap" rel="stylesheet">
+    <style>
+        /* スタイルはここに */
+        body {
+          background-color: #F0F8FF;
+          font-family: 'Rounded Mplus 1c', 'Noto Sans JP', sans-serif;
+          text-align: center;
+        }
+        h1 {
+          color: #3C8D7C;
+        }
+        h2 {
+          color: #3c698d;
+          font-size: 20px;
+        }
+        .thread-list {
+          list-style: none;
+          padding: 0;
+        }
+        .thread-item {
+          background: #FFFFFF;
+          margin: 10px auto;
+          width: 300px;
+          padding: 10px;
+          border-radius: 15px;
+          box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+        .button {
+          background-color: #3C8D7C;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          margin: 10px;
+          border-radius: 30px;
+          font-size: 16px;
+          cursor: pointer;
+          transition: all 0.3s;
+        }
+        .button:hover {
+          background-color: #2E6B5A;
+        }
+        .button-link {
+          background-color: #3C8D7C;
+          color: #fff;
+          border: none;
+          padding: 3px 10px;
+          margin: 5px;
+          border-radius: 5px;
+          font-size: 10px;
+          cursor: pointer;
+          transition: all 0.3s;
+        }
+        .button-link:hover {
+          background-color: #2E6B5A;
+        }
+    </style>
+</head>
   <!-- </div><form action="{% url 'board:tanukiti' %}" method="get">
     <button class="button-link" type="submit">たぬきちページへ</button>
 </form> -->
-  
