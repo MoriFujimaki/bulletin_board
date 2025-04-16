@@ -3,9 +3,10 @@ from .models import Post
 from .models import Thread
 from django import forms
 class PostForm(forms.ModelForm):
-    class Meta:
+      delete_password = forms.CharField(widget=forms.PasswordInput(), required=False, label="削除用パスワード")
+      class Meta:
         model = Post
-        fields = ['content'] 
+        fields = ['content', 'delete_password']
 class ThreadForm(forms.ModelForm):
     class Meta:
         model = Thread

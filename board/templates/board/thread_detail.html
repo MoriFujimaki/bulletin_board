@@ -146,3 +146,8 @@
           background-color: #2E6B5A;
         }
       </style>
+      <form method="post" action="{% url 'delete_post' post.id %}">
+        {% csrf_token %}
+        <input type="password" name="delete_password" placeholder="削除用パスワード">
+        <button type="submit">削除</button>
+    </form>

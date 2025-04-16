@@ -1,0 +1,7 @@
+<h2>本当にこの投稿を削除しますか？</h2>
+<p>{{ post.content }}</p>
+<form method="post">
+    {% csrf_token %}
+    <input type="password" name="delete_password" placeholder="削除用パスワード">
+    <button type="submit">削除する</button>
+</form>

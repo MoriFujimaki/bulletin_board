@@ -11,7 +11,5 @@ urlpatterns = [
     path('search/', views.search, name='search'),
     path('search_results/', views.search_results, name='search_results'),
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
-    path('thread/<int:thread_id>/', views.thread_detail, name='thread_detail'),
     path('delete_post/<int:post_id>/', views.delete_post, name='delete_post'),
 ]
