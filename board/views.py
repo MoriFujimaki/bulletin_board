@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Thread, Post
 from .forms import ThreadForm, PostForm, SearchForm
 from .forms import SearchForm
+
 def thread_list(request):
     print('メインぺージを読み込むだなも！')
     message = "たぬきちの掲示板へようこそだなも！"
@@ -11,7 +12,8 @@ def thread_list(request):
     return render(request, 'board/thread_list.html', {'threads': threads, 'message': message})
 
 def hello(request):
-    return HttpResponse("たぬきちのHello Worldだなも！")
+    return render(request, 'board/hello.html')
+
 def tanukiti(request):
     return HttpResponse("まなはたぬきちだなも")
 
@@ -44,6 +46,7 @@ def thread_detail(request, thread_id):
         'form': form,
         
     })
+
 def search(request):
     form = SearchForm(request.GET)
     threads = Thread.objects.all()
@@ -59,6 +62,7 @@ def search(request):
 
 def search_results(request):
     return render(request, 'board/search_results.html')
+
 def delete_post(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 

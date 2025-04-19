@@ -1,0 +1,125 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>たぬきちのダンジョンだなも！</title>
+    <style>
+        body {
+            background-color: #111;
+            color: #eee;
+            font-family: 'ＭＳ ゴシック', monospace;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #ffcc00;
+            text-shadow: 2px 2px 5px #000;
+        }
+
+        .message {
+            font-size: 24px;
+            margin: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px;
+            background-color: #333;
+            color: #ffcc00;
+            text-decoration: none;
+            border-radius: 10px;
+        }
+
+        .button:hover {
+            background-color: #555;
+        }
+
+        /* 画像に動きをつけるためのCSS */
+        .monster-img {
+            width: 300px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px #000;
+            animation: jumpIn 1s ease-in-out, shake 0.5s 1s ease-in-out;
+        }
+
+        /* 画像のジャンプアニメーション */
+        @keyframes jumpIn {
+            0% {
+                transform: scale(0.5) translateY(50px);
+            }
+            50% {
+                transform: scale(1.2) translateY(-20px);
+            }
+            100% {
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* 画像の震えるアニメーション */
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-10px);
+            }
+            50% {
+                transform: translateX(10px);
+            }
+            75% {
+                transform: translateX(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>たぬきちのダンジョンだなも！</h1>
+
+    <div class="message">ここは不気味なダンジョンの一室だなも…</div>
+
+    <!-- ランダムモンスター画像 -->
+    <div id="random-monster-container"></div>
+
+    <!-- メッセージ -->
+    <div class="message" id="monster-message">何かが近づいてくる…！</div>
+
+    <a href="/" class="button">ダンジョンから脱出する</a>
+
+    <!-- 音楽 -->
+    <audio autoplay loop>
+        <source src="{% static 'music/hellopageBGM.mp3' %}" type="audio/mp3">
+        このブラウザは音楽をサポートしていません。
+    </audio>
+
+    <script>
+        // モンスター画像（画像ファイルのパス）
+        const monsters = [
+            "{% static 'images/monster1.jpg' %}",
+            "{% static 'images/monster2.jpg' %}",
+            "{% static 'images/monster3.jpg' %}"
+        ];
+
+        // モンスター出現メッセージ
+        const monsterMessages = [
+            "ゴブリンが現れた！",
+            "スライムがヌルヌルと出てきた！",
+            "ドラゴンの咆哮が響き渡る！"
+        ];
+
+        // ランダムに選択
+        const randomIndex = Math.floor(Math.random() * monsters.length);
+        const selectedMonster = monsters[randomIndex];
+        const selectedMessage = monsterMessages[randomIndex];
+
+        // 画像とメッセージを表示
+        const imgTag = `<img src="${selectedMonster}" alt="モンスター" class="monster-img">`;
+        document.getElementById("random-monster-container").innerHTML = imgTag;
+        document.getElementById("monster-message").textContent = selectedMessage;
+    </script>
+</body>
+</html>
