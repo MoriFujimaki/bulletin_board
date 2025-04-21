@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Thread, Post
 from .forms import ThreadForm, PostForm, SearchForm

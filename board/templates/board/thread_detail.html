@@ -89,6 +89,20 @@
         {{ form.as_p }}
         <button type="submit" class="button">投稿！</button>
     </form>
+    {% for post in posts %}
+    <div class="post-card">
+        <div class="post-meta">
+            {{ post.author.username|default:"匿名" }} - {{ post.created_at|date:"Y/m/d H:i" }}
+        </div>
+        <div>{{ post.content }}</div>
+
+        <form method="post" action="{% url 'board:delete_post' post.id %}" style="display:inline;">
+            {% csrf_token %}
+            <input type="password" name="delete_password" placeholder="削除用パスワード">
+            <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
+        </form>
+    </div>
+{% endfor %}
     <a href="{% url 'board:thread_list' %}" class="back-link">← スレッド一覧にもどるだなも</a>
 </body>
 </html>
@@ -146,8 +160,4 @@
           background-color: #2E6B5A;
         }
       </style>
-      <form method="post" action="{% url 'delete_post' post.id %}">
-        {% csrf_token %}
-        <input type="password" name="delete_password" placeholder="削除用パスワード">
-        <button type="submit">削除</button>
-    </form>
+      
