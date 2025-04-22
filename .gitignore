@@ -1,0 +1,3 @@
+# .gitignore に追記
+*.pyc
+__pycache__/
